@@ -24,7 +24,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log('server or client?')
   return (
     <html lang="ja">
       <body className={notoSansJP.className} >
