@@ -1,5 +1,6 @@
 "use client";
-import { useSession } from "next-auth/react";
+
+import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -22,12 +23,12 @@ const Header = () => {
             ホーム
           </Link>
           <Link
-            href="/login"
+            href={user ? "/profile" : "/login"}
             className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
           >
-            ログイン
+            {user ? "プロフィール" : "ログイン"}
           </Link>
-
+          {user ? <button onClick={() => signOut({callbackUrl: "/login"})} className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">ログアウト</button> : ""}
           <Link href={`/profile`}>
             <Image
               width={50}
