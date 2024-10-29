@@ -8,19 +8,20 @@ import { useRouter } from "next/navigation";
 // import Link from "next/link";
 
 type BookProps = {
-    book: BookType
+    book: BookType;
+    isPurchased: boolean;
 }
-// eslint-disable-next-line react/display-name
-const Book = ( {book} : BookProps) => {
+
+const Book = ( {book, isPurchased} : BookProps) => {
 
   const [showModal, setShowModal] = useState(false);
   const { data: session } = useSession();
-  const user = session?.user;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const user: any = session?.user;
   const router = useRouter();
 
   const startCheckout = async () => {
     try {
-      console.log('next-public-api-url',process.env.NEXT_PUBLIC_API_URL);
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_API_URL}/checkout`,{
           method: "POST",
@@ -28,6 +29,8 @@ const Book = ( {book} : BookProps) => {
           body: JSON.stringify({
             title: book.title,
             price: book.price,
+            userId: user.id,
+            bookId: book.id,
           })
         }
       );
@@ -42,7 +45,11 @@ const Book = ( {book} : BookProps) => {
   }
   
   const handlePurchaseClick = () => {
-    setShowModal(true);
+    if (isPurchased) {
+      alert("その商品は購入済みです");
+    } else {
+      setShowModal(true);
+    }
   }
 
   const handleCancel = () => {
