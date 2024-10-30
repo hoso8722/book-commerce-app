@@ -5,7 +5,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
 export async function POST(request: Request) {
   const { title, price, bookId, userId } = await request.json();
-  console.log('------title&price',title, price)
+  // console.log('------title&price',title, price)
   try {
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
