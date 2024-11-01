@@ -10,7 +10,7 @@ export const getAllBooks = async () => {
     const allBooks = await client.getList<BookType>({
         endpoint: "ebook",
         customRequestInit: {
-          cache: "no-store"
+          cache: "force-cache"
         },
     });
 
