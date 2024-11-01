@@ -22,7 +22,7 @@ export const getDetailBook = async(contentId: string) => {
     endpoint: "ebook",
     contentId,
     customRequestInit: {
-      cache: "no-store"
+      cache: "force-cache"
     },
   });
 
