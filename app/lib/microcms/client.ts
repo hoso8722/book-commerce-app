@@ -10,7 +10,7 @@ export const getAllBooks = async () => {
     const allBooks = await client.getList<BookType>({
         endpoint: "ebook",
         customRequestInit: {
-          cache: "force-cache"
+          cache: "default"
         },
     });
 
@@ -22,9 +22,17 @@ export const getDetailBook = async(contentId: string) => {
     endpoint: "ebook",
     contentId,
     customRequestInit: {
-      cache: "force-cache"
+      cache: "default"
     },
   });
 
   return detailBook;
+}
+
+export const getAllBookIds = async() => {
+  const bookIds = await client.getAllContentIds({
+    endpoint: "ebook",
+  });
+  console.log(bookIds);
+  return bookIds
 }

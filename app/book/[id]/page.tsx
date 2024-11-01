@@ -1,8 +1,18 @@
-import { getDetailBook } from "@/app/lib/microcms/client";
+import { getDetailBook, getAllBookIds } from "@/app/lib/microcms/client";
 import Image from "next/image";
 import React from "react";
 
-const DetailBook = async ({ params }: { params: { id: string }}) => {
+
+export async function generateStaticParams() {
+  const IDs = await getAllBookIds();
+  console.log(IDs)
+
+  return IDs.map(id => ({
+    id: id,
+  }));
+}
+
+export default async function DetailBook({ params }: { params: { id: string }}) {
   const book = await getDetailBook(params.id); //SSR
 
   return (
@@ -31,5 +41,3 @@ const DetailBook = async ({ params }: { params: { id: string }}) => {
     </div>
   );
 };
-
-export default DetailBook;
